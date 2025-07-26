@@ -89,17 +89,6 @@ SESSION_SECRET=your_session_secret
 
 ---
 
-## Deployment (Render)
-1. Push code to GitHub.
-2. On Render, create a new Web Service:
-   - **Build command:** `npm run build`
-   - **Start command:** `npm run start`
-   - **Environment:** Node.js 18+
-   - **Add environment variables** from `.env`
-3. Render will build the frontend and run the Express backend, serving everything from one URL.
-
----
-
 ## Key Files
 - `client/src/pages/`: Main app pages (journal, landing, profile, results, etc.)
 - `client/src/components/`: UI components (cards, buttons, navigation, etc.)
@@ -114,7 +103,6 @@ SESSION_SECRET=your_session_secret
 
 ## Team Notes
 - All colors and UI are unified to a dreamy purple gradient theme.
-- No Replit dependencies; project is clean for deployment.
 - Backend serves static frontend from `/dist`.
 - All changes are pushed to GitHub.
 - For any issues, check build output and environment variables.

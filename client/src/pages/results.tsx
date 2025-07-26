@@ -7,6 +7,7 @@ import PlaylistCard from "@/components/playlist-card";
 import { Save, Share, RotateCcw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { GenerationResult } from "@/lib/types";
+import { useQuery } from "@tanstack/react-query";
 
 interface ResultsProps {
   generationResult: GenerationResult | null;
@@ -19,8 +20,18 @@ export default function Results({ generationResult, selectedMood, onStartOver, s
   const [, setLocation] = useLocation();
   const { toast } = useToast();
 
+  // Define the expected session data type
+  interface SessionData {
+    id: string;
+    generatedOutfit: GenerationResult["outfit"];
+    generatedMoodboard: GenerationResult["moodboard"];
+    generatedPoem: GenerationResult["poem"];
+    generatedPlaylist: GenerationResult["playlist"];
+    mood: string;
+  }
+
   // Load session data if sessionId is provided
-  const { data: sessionData } = useQuery({
+  const { data: sessionData } = useQuery<SessionData>({
     queryKey: [`/api/sessions/${sessionId}`],
     enabled: !!sessionId && !generationResult,
   });
@@ -39,9 +50,9 @@ export default function Results({ generationResult, selectedMood, onStartOver, s
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
         <div className="text-center glass-card rounded-3xl p-8">
-          <h2 className="text-2xl font-bold text-white mb-4">No results to show</h2>
-          <p className="text-cream mb-6">Start your mood journey to see your generated aesthetic.</p>
-          <Button onClick={() => setLocation("/")} className="pink-gradient text-white border-0">
+          <h2 className="text-2xl font-bold text-purple-deep mb-4">No results to show</h2>
+          <p className="text-purple-deep mb-6">Start your mood journey to see your generated aesthetic.</p>
+          <Button onClick={() => setLocation("/")} className="pink-gradient text-purple-deep border-0">
             Start Over
           </Button>
         </div>
@@ -86,10 +97,10 @@ export default function Results({ generationResult, selectedMood, onStartOver, s
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-white text-glow mb-4">
+          <h2 className="text-5xl font-bold text-purple-deep text-glow mb-4">
             Your Aesthetic Universe ✨
           </h2>
-          <p className="text-xl text-cream">
+          <p className="text-xl text-purple-deep">
             AI has crafted your complete mood experience
           </p>
         </div>
@@ -106,21 +117,21 @@ export default function Results({ generationResult, selectedMood, onStartOver, s
         <div className="text-center space-x-4">
           <Button 
             onClick={handleSave}
-            className="px-8 py-3 glass-card text-white font-semibold rounded-full hover-scale transition-all duration-300 border-0"
+            className="px-8 py-3 glass-card text-purple-light font-semibold rounded-full hover-scale transition-all duration-300 border-0"
           >
             <Save className="w-5 h-5 mr-2" />
             Save This Mood
           </Button>
           <Button 
             onClick={handleShare}
-            className="px-8 py-3 pink-gradient text-white font-semibold rounded-full hover-scale transition-all duration-300 border-0"
+            className="px-8 py-3 pink-gradient text-purple-deep font-semibold rounded-full hover-scale transition-all duration-300 border-0"
           >
             <Share className="w-5 h-5 mr-2" />
             Share My Aesthetic
           </Button>
           <Button 
             onClick={handleStartOver}
-            className="px-8 py-3 glass-card text-white font-semibold rounded-full hover-scale transition-all duration-300 border-0"
+            className="px-8 py-3 glass-card text-purple-light font-semibold rounded-full hover-scale transition-all duration-300 border-0"
           >
             <RotateCcw className="w-5 h-5 mr-2" />
             Create New Mood

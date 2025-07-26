@@ -32,7 +32,7 @@ function Router() {
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen bg-[hsl(269,91%,15%)]">
       {/* Animated Background Particles */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="sparkle" style={{ top: '20%', left: '10%', animationDelay: '0s' }}></div>

@@ -33,7 +33,7 @@ export default function PlaylistCard({ playlist }: PlaylistCardProps) {
   return (
     <div className="glass-card rounded-3xl p-6 hover-scale pulse-glow">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-semibold text-white">Your Playlist 🎵</h3>
+        <h3 className="text-2xl font-semibold text-purple-light">Your Playlist 🎵</h3>
         <Button 
           onClick={handleSpotifyOpen}
           size="icon"
@@ -49,7 +49,7 @@ export default function PlaylistCard({ playlist }: PlaylistCardProps) {
             <Music className="w-8 h-8 text-pink-accent" />
           </div>
           <div>
-            <h4 className="text-lg font-semibold text-white">{playlist.name}</h4>
+            <h4 className="text-lg font-semibold text-purple-deep">{playlist.name}</h4>
             <p className="text-sm text-purple-light">
               {playlist.tracks.length} songs • {formatDuration(totalDuration)}
             </p>
@@ -59,7 +59,7 @@ export default function PlaylistCard({ playlist }: PlaylistCardProps) {
         {/* Sample Track List */}
         <div className="space-y-2 text-sm max-h-48 overflow-y-auto">
           {playlist.tracks.slice(0, 6).map((track, index) => (
-            <div key={index} className="flex justify-between text-cream hover:text-white transition-colors">
+            <div key={index} className="flex justify-between text-purple-deep hover:text-purple-deep transition-colors">
               <span className="truncate mr-2">{track.artist} - {track.song}</span>
               <span className="text-purple-light flex-shrink-0">{track.duration}</span>
             </div>

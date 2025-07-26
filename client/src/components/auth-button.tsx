@@ -6,8 +6,19 @@ interface AuthButtonProps {
   showProfile?: boolean;
 }
 
+interface AuthUser {
+  profileImageUrl?: string;
+  firstName?: string;
+  email?: string;
+  // add other properties if needed
+}
+
 export default function AuthButton({ showProfile = false }: AuthButtonProps) {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth() as {
+    user?: AuthUser;
+    isAuthenticated: boolean;
+    isLoading: boolean;
+  };
 
   const handleLogin = () => {
     window.location.href = "/api/auth/google";
@@ -24,7 +35,7 @@ export default function AuthButton({ showProfile = false }: AuthButtonProps) {
 
   if (isLoading) {
     return (
-      <Button disabled className="glass-card text-white border-0">
+      <Button disabled className="glass-card text-purple-light border-0">
         Loading...
       </Button>
     );
@@ -34,7 +45,7 @@ export default function AuthButton({ showProfile = false }: AuthButtonProps) {
     return (
       <Button 
         onClick={handleLogin}
-        className="pink-gradient text-white font-semibold rounded-full hover-scale transition-all duration-300 shadow-xl border-0"
+        className="pink-gradient text-cream font-semibold rounded-full hover-scale transition-all duration-300 shadow-xl border-0"
       >
         <LogIn className="w-4 h-4 mr-2" />
         Sign in with Google
@@ -55,7 +66,7 @@ export default function AuthButton({ showProfile = false }: AuthButtonProps) {
           ) : (
             <User className="w-6 h-6 text-pink-accent" />
           )}
-          <span className="text-white font-medium">
+          <span className="text-purple-light font-medium">
             {user?.firstName || user?.email?.split('@')[0] || 'User'}
           </span>
         </div>
@@ -73,7 +84,7 @@ export default function AuthButton({ showProfile = false }: AuthButtonProps) {
   return (
     <Button 
       onClick={handleLogout}
-      className="glass-card text-white rounded-full hover-scale transition-all duration-300 border-0"
+      className="glass-card text-purple-light rounded-full hover-scale transition-all duration-300 border-0"
     >
       <LogOut className="w-4 h-4 mr-2" />
       Sign Out

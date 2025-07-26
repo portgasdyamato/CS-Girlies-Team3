@@ -14,7 +14,7 @@ export default function FloatingNavigation() {
           onClick={() => setLocation("/")}
           size="icon"
           className={`w-12 h-12 rounded-full transition-all duration-300 border-0 ${
-            location === "/" ? "bg-pink-accent text-white" : "bg-transparent text-white hover:bg-pink-accent"
+            location === "/" ? "bg-pink-accent text-cream" : "bg-transparent text-purple-light hover:bg-pink-accent"
           }`}
         >
           <Home className="w-5 h-5" />
@@ -23,7 +23,7 @@ export default function FloatingNavigation() {
           onClick={() => setLocation("/mood-selector")}
           size="icon"
           className={`w-12 h-12 rounded-full transition-all duration-300 border-0 ${
-            location === "/mood-selector" ? "bg-pink-accent text-white" : "bg-transparent text-white hover:bg-pink-accent"
+            location === "/mood-selector" ? "bg-pink-accent text-cream" : "bg-transparent text-purple-light hover:bg-pink-accent"
           }`}
         >
           <Heart className="w-5 h-5" />
@@ -32,7 +32,7 @@ export default function FloatingNavigation() {
           onClick={() => setLocation("/journal")}
           size="icon"
           className={`w-12 h-12 rounded-full transition-all duration-300 border-0 ${
-            location === "/journal" ? "bg-pink-accent text-white" : "bg-transparent text-white hover:bg-pink-accent"
+            location === "/journal" ? "bg-pink-accent text-cream" : "bg-transparent text-purple-light hover:bg-pink-accent"
           }`}
         >
           <Book className="w-5 h-5" />
@@ -41,7 +41,7 @@ export default function FloatingNavigation() {
           onClick={() => setLocation("/results")}
           size="icon"
           className={`w-12 h-12 rounded-full transition-all duration-300 border-0 ${
-            location === "/results" ? "bg-pink-accent text-white" : "bg-transparent text-white hover:bg-pink-accent"
+            location === "/results" ? "bg-pink-accent text-cream" : "bg-transparent text-purple-light hover:bg-pink-accent"
           }`}
         >
           <Sparkles className="w-5 h-5" />

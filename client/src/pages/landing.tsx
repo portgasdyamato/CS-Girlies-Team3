@@ -9,66 +9,61 @@ export default function LandingPage() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <section className="min-h-screen flex items-center justify-center p-6">
-      <div className="text-center space-y-8 max-w-4xl mx-auto">
-        {/* Floating Logo */}
-        <div className="floating mb-8">
-          <div className="w-32 h-32 mx-auto glass-card rounded-full flex items-center justify-center pulse-glow">
-            <Sparkles className="w-16 h-16 text-pink-light" />
+    <section className="min-h-screen flex items-center justify-center p-6 gradient-bg">
+      <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center">
+        {/* Floating Icons */}
+        <div className="absolute left-0 top-1/3">
+          <div className="w-20 h-20 glass-card rounded-2xl flex items-center justify-center shadow-xl border-pink-accent bg-[rgba(40,0,60,0.85)]">
+            <Palette className="w-10 h-10" style={{color: '#a259c6'}} />
           </div>
         </div>
-        
+        <div className="absolute right-0 top-1/3">
+          <div className="w-20 h-20 glass-card rounded-2xl flex items-center justify-center shadow-xl border-pink-accent bg-[rgba(40,0,60,0.85)]">
+            <Music className="w-10 h-10" style={{color: '#a259c6'}} />
+          </div>
+        </div>
+        {/* Floating Logo */}
+        <div className="floating mb-8">
+          <div className="w-32 h-32 glass-card rounded-full flex items-center justify-center pulse-glow shadow-2xl border-pink-accent bg-[rgba(40,0,60,0.85)]">
+            <Sparkles className="w-16 h-16" style={{color: '#f7b2e6'}} />
+          </div>
+        </div>
         {/* Animated Title */}
-        <div className="space-y-4">
-          <h1 className="text-7xl md:text-8xl font-bold text-white text-glow tracking-wider">
-            Muse<span className="text-pink-light">Mood</span>
+        <div className="space-y-4 text-center">
+          <h1 className="text-7xl md:text-8xl font-bold text-purple-light text-glow tracking-wider" style={{textShadow: '0 2px 8px #3a185c'}}>
+            Muse<span style={{color: '#f7b2e6'}}>Mood</span>
           </h1>
-          <p className="text-2xl md:text-3xl text-cream font-light tracking-wide">
+          <p className="text-2xl md:text-3xl font-light tracking-wide text-purple-light" style={{color: '#e6e0f6', textShadow: '0 1px 4px #3a185c'}}>
             Your AI-Powered Aesthetic Generator ✨
           </p>
-          <p className="text-lg text-purple-light max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg max-w-2xl mx-auto leading-relaxed text-pink-accent" style={{textShadow: '0 1px 4px #3a185c'}}>
             Transform your emotions into a complete sensory experience with AI-generated outfits, moodboards, poems, and playlists
           </p>
         </div>
-        
         {/* CTA and Auth Buttons */}
-        <div className="pt-8 space-y-4">
-          <div>
-            <Button 
-              onClick={() => setLocation("/mood-selector")}
-              className="px-12 py-4 pink-gradient text-white font-semibold text-xl rounded-full hover-scale transition-all duration-300 shadow-2xl border-0"
-              size="lg"
-            >
-              <span className="mr-3">💖</span>
-              Start Your Mood Journey
-            </Button>
-          </div>
-          <div className="flex justify-center">
+        <div className="pt-8 space-y-4 w-full flex flex-col items-center">
+          <Button 
+            onClick={() => setLocation("/mood-selector")}
+            className="px-12 py-4 pink-gradient text-purple-light font-semibold text-xl rounded-full hover-scale transition-all duration-300 shadow-2xl border-0"
+            size="lg"
+          >
+            <span className="mr-3">💖</span>
+            Start Your Mood Journey
+          </Button>
+          <div className="flex justify-center w-full">
             <AuthButton />
           </div>
           {isAuthenticated && (
-            <div className="flex justify-center">
+            <div className="flex justify-center w-full">
               <Button 
                 onClick={() => setLocation("/profile")}
                 variant="outline"
-                className="glass-card text-white border-lavender hover:border-pink-accent"
+                className="glass-card text-purple-light border-lavender hover:border-pink-accent"
               >
                 View My Profile
               </Button>
             </div>
           )}
-        </div>
-        
-        {/* Floating Elements */}
-        <div className="floating-delayed absolute top-20 left-20 hidden md:block">
-          <div className="glass-card w-20 h-20 rounded-2xl flex items-center justify-center">
-            <Palette className="w-8 h-8 text-lavender" />
-          </div>
-        </div>
-        <div className="floating absolute bottom-20 right-20 hidden md:block">
-          <div className="glass-card w-24 h-24 rounded-3xl flex items-center justify-center">
-            <Music className="w-10 h-10 text-pink-accent" />
-          </div>
         </div>
       </div>
     </section>

@@ -52,7 +52,7 @@ export default function OutfitCard({ outfit }: OutfitCardProps) {
   return (
     <div className="glass-card rounded-3xl p-6 hover-scale pulse-glow">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-semibold text-white">Your Outfit ✨</h3>
+        <h3 className="text-2xl font-semibold text-purple-light">Your Outfit ✨</h3>
         <Button 
           onClick={handleDownload}
           size="icon"
@@ -71,7 +71,7 @@ export default function OutfitCard({ outfit }: OutfitCardProps) {
             className="w-full h-full object-cover rounded-2xl"
           />
         ) : (
-          <div className="text-center text-white">
+          <div className="text-center text-purple-deep">
             <Shirt className="w-16 h-16 mb-4 text-pink-accent mx-auto" />
             <p className="text-lg">AI Generated Outfit</p>
             <p className="text-sm text-purple-light">{outfit.styleName}</p>
@@ -82,17 +82,17 @@ export default function OutfitCard({ outfit }: OutfitCardProps) {
       {/* Outfit Details */}
       <div className="space-y-3">
         <div>
-          <h4 className="text-lg font-medium text-white mb-2">Style Name</h4>
+          <h4 className="text-lg font-medium text-purple-deep mb-2">Style Name</h4>
           <p className="text-pink-accent font-semibold">{outfit.styleName}</p>
         </div>
         
         <div>
-          <h4 className="text-lg font-medium text-white mb-2">Color Palette</h4>
+          <h4 className="text-lg font-medium text-purple-deep mb-2">Color Palette</h4>
           <div className="flex space-x-2">
             {outfit.colorPalette.map((color, index) => (
               <div 
                 key={index}
-                className="w-8 h-8 rounded-full border-2 border-white/20"
+                className="w-8 h-8 rounded-full border-2 border-purple-light/20"
                 style={{ backgroundColor: color }}
                 title={color}
               />
@@ -101,8 +101,8 @@ export default function OutfitCard({ outfit }: OutfitCardProps) {
         </div>
         
         <div>
-          <h4 className="text-lg font-medium text-white mb-2">Instagram Caption</h4>
-          <p className="text-cream text-sm italic">{outfit.instagramCaption}</p>
+          <h4 className="text-lg font-medium text-purple-deep mb-2">Instagram Caption</h4>
+          <p className="text-purple-deep text-sm italic">{outfit.instagramCaption}</p>
         </div>
       </div>
     </div>

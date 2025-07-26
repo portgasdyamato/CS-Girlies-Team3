@@ -54,7 +54,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Generation error:", error);
       res.status(500).json({ 
         message: "Failed to generate aesthetic content. Please check your OpenAI API key and try again.",
-        error: error.message 
+        error: typeof error === 'object' && error !== null && 'message' in error ? (error as any).message : String(error)
       });
     }
   });
@@ -68,7 +68,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       res.json(session);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch session", error: error.message });
+      res.status(500).json({ message: "Failed to fetch session", error: typeof error === 'object' && error !== null && 'message' in error ? (error as any).message : String(error) });
     }
   });
 
@@ -79,7 +79,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const sessions = await storage.getMoodSessionsByUser(userId);
       res.json(sessions);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch sessions", error: error.message });
+      res.status(500).json({ message: "Failed to fetch sessions", error: typeof error === 'object' && error !== null && 'message' in error ? (error as any).message : String(error) });
     }
   });
 

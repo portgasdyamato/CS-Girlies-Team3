@@ -6,8 +6,16 @@ import { Calendar, Heart, Sparkles } from "lucide-react";
 import AuthButton from "@/components/auth-button";
 import { MoodSession } from "@shared/schema";
 
+type User = {
+  profileImageUrl?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  createdAt?: string | number;
+};
+
 export default function ProfilePage() {
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading } = useAuth() as { user?: User; isAuthenticated: boolean; isLoading: boolean };
   const [, setLocation] = useLocation();
 
   const { data: moodSessions = [], isLoading: sessionsLoading } = useQuery<MoodSession[]>({
@@ -21,7 +29,7 @@ export default function ProfilePage() {
         <div className="glass-card rounded-3xl p-8 text-center">
           <div className="animate-pulse">
             <Sparkles className="w-16 h-16 text-pink-accent mx-auto mb-4" />
-            <p className="text-white text-lg">Loading your profile...</p>
+            <p className="text-purple-light text-lg">Loading your profile...</p>
           </div>
         </div>
       </div>
@@ -33,8 +41,8 @@ export default function ProfilePage() {
       <div className="min-h-screen flex items-center justify-center p-6">
         <div className="text-center glass-card rounded-3xl p-8 max-w-md">
           <Heart className="w-16 h-16 text-pink-accent mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-4">Sign in to MuseMood</h2>
-          <p className="text-cream mb-6">
+          <h2 className="text-2xl font-bold text-purple-deep mb-4">Sign in to MuseMood</h2>
+          <p className="text-purple-deep mb-6">
             Create an account to save your mood journeys, track your aesthetic evolution, and access your personalized content library.
           </p>
           <AuthButton />
@@ -42,7 +50,7 @@ export default function ProfilePage() {
             <Button 
               onClick={() => setLocation("/")}
               variant="outline"
-              className="glass-card text-white border-lavender hover:border-pink-accent"
+              className="glass-card text-purple-light border-lavender hover:border-pink-accent"
             >
               Continue as Guest
             </Button>
@@ -71,14 +79,14 @@ export default function ProfilePage() {
                 </div>
               )}
               <div>
-                <h1 className="text-3xl font-bold text-white">
+                <h1 className="text-3xl font-bold text-purple-deep">
                   {user?.firstName && user?.lastName 
                     ? `${user.firstName} ${user.lastName}` 
                     : user?.firstName || user?.email?.split('@')[0] || 'MuseMood User'
                   }
                 </h1>
                 <p className="text-purple-light">{user?.email}</p>
-                <p className="text-sm text-cream">
+                <p className="text-sm text-purple-deep">
                   Member since {new Date(user?.createdAt || Date.now()).toLocaleDateString()}
                 </p>
               </div>
@@ -90,13 +98,13 @@ export default function ProfilePage() {
           <div className="grid grid-cols-3 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-pink-accent">{moodSessions.length}</div>
-              <div className="text-sm text-cream">Mood Journeys</div>
+              <div className="text-sm text-purple-deep">Mood Journeys</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-pink-accent">
                 {new Set(moodSessions.map(s => s.mood)).size}
               </div>
-              <div className="text-sm text-cream">Unique Moods</div>
+              <div className="text-sm text-purple-deep">Unique Moods</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-pink-accent">
@@ -104,7 +112,7 @@ export default function ProfilePage() {
                   new Date(s.createdAt).getTime() > Date.now() - 7 * 24 * 60 * 60 * 1000
                 ).length}
               </div>
-              <div className="text-sm text-cream">This Week</div>
+              <div className="text-sm text-purple-deep">This Week</div>
             </div>
           </div>
         </div>
@@ -112,10 +120,10 @@ export default function ProfilePage() {
         {/* Recent Mood Journeys */}
         <div className="glass-card rounded-3xl p-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white">Your Mood History</h2>
+            <h2 className="text-2xl font-bold text-purple-deep">Your Mood History</h2>
             <Button 
               onClick={() => setLocation("/mood-selector")}
-              className="pink-gradient text-white rounded-full border-0"
+              className="pink-gradient text-purple-deep rounded-full border-0"
             >
               <Sparkles className="w-4 h-4 mr-2" />
               Create New Mood
@@ -126,13 +134,13 @@ export default function ProfilePage() {
             <div className="text-center py-8">
               <div className="animate-pulse">
                 <Calendar className="w-12 h-12 text-pink-accent mx-auto mb-4" />
-                <p className="text-cream">Loading your mood journeys...</p>
+                <p className="text-purple-deep">Loading your mood journeys...</p>
               </div>
             </div>
           ) : moodSessions.length === 0 ? (
             <div className="text-center py-8">
               <Calendar className="w-12 h-12 text-purple-light mx-auto mb-4" />
-              <p className="text-cream mb-4">No mood journeys yet</p>
+              <p className="text-purple-deep mb-4">No mood journeys yet</p>
               <p className="text-purple-light text-sm">
                 Start your first mood journey to see your aesthetic evolution!
               </p>
@@ -147,8 +155,8 @@ export default function ProfilePage() {
                       {new Date(session.createdAt!).toLocaleDateString()}
                     </span>
                   </div>
-                  <h3 className="text-white font-medium mb-2 capitalize">{session.mood}</h3>
-                  <p className="text-cream text-sm line-clamp-2">
+                  <h3 className="text-purple-light font-medium mb-2 capitalize">{session.mood}</h3>
+                  <p className="text-purple-deep text-sm line-clamp-2">
                     {session.journalEntry}
                   </p>
                   <Button 

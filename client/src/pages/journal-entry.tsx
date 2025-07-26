@@ -77,10 +77,10 @@ export default function JournalEntry({
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold text-white text-glow mb-4">
+          <h2 className="text-4xl font-bold text-purple-deep text-glow mb-4">
             Pour your heart out ✍️
           </h2>
-          <p className="text-lg text-cream">
+          <p className="text-lg text-purple-deep">
             Write about your current mood and let AI create magic
           </p>
         </div>
@@ -94,7 +94,7 @@ export default function JournalEntry({
                 <Book className="w-6 h-6 text-pink-accent" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-white">Your Mood Journal</h3>
+                <h3 className="text-xl font-semibold text-purple-light">Your Mood Journal</h3>
                 <p className="text-sm text-purple-light">
                   {selectedMood} {selectedEmoji}
                 </p>
@@ -111,7 +111,7 @@ export default function JournalEntry({
               value={journalEntry}
               onChange={(e) => onJournalChange(e.target.value)}
               placeholder={`Today I'm feeling so ${selectedMood}... describe your emotions, your style goals, what's inspiring you right now...`}
-              className="w-full h-64 p-6 rounded-2xl glass-card text-white placeholder-purple-light bg-transparent border-2 border-lavender focus:border-pink-accent outline-none transition-all duration-300 resize-none leading-relaxed"
+              className="w-full h-64 p-6 rounded-2xl glass-card text-purple-light placeholder-purple-light bg-transparent border-2 border-lavender focus:border-pink-accent outline-none transition-all duration-300 resize-none leading-relaxed"
               maxLength={500}
             />
             
@@ -134,7 +134,7 @@ export default function JournalEntry({
             <Button 
               onClick={handleGenerate}
               disabled={!journalEntry.trim() || generateMutation.isPending}
-              className="px-10 py-4 pink-gradient text-white font-semibold text-lg rounded-full hover-scale transition-all duration-300 shadow-xl border-0"
+              className="px-10 py-4 pink-gradient text-purple-deep font-semibold text-lg rounded-full hover-scale transition-all duration-300 shadow-xl border-0"
             >
               <Wand2 className="w-5 h-5 mr-2" />
               {generateMutation.isPending ? "Generating Magic..." : "Generate My Aesthetic"}

@@ -43,7 +43,7 @@ export default function MoodboardCard({ moodboard }: MoodboardCardProps) {
   return (
     <div className="glass-card rounded-3xl p-6 hover-scale pulse-glow">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-semibold text-white">Your Moodboard 🎨</h3>
+        <h3 className="text-2xl font-semibold text-purple-light">Your Moodboard 🎨</h3>
         <Button 
           onClick={handleShare}
           size="icon"
@@ -67,12 +67,12 @@ export default function MoodboardCard({ moodboard }: MoodboardCardProps) {
       
       {/* Color Scheme */}
       <div className="mb-4">
-        <h4 className="text-lg font-medium text-white mb-2">Color Scheme</h4>
+        <h4 className="text-lg font-medium text-purple-deep mb-2">Color Scheme</h4>
         <div className="flex space-x-2">
           {moodboard.colorScheme.map((color, index) => (
             <div 
               key={index}
-              className="w-8 h-8 rounded-full border-2 border-white/20"
+              className="w-8 h-8 rounded-full border-2 border-purple-light/20"
               style={{ backgroundColor: color }}
               title={color}
             />
@@ -81,7 +81,7 @@ export default function MoodboardCard({ moodboard }: MoodboardCardProps) {
       </div>
       
       <div>
-        <p className="text-cream text-sm">
+        <p className="text-purple-deep text-sm">
           <span className="font-medium">Aesthetic Tags:</span>{" "}
           {moodboard.aestheticTags.join(", ")}
         </p>

@@ -26,7 +26,7 @@ export default function PoemCard({ poem }: PoemCardProps) {
   return (
     <div className="glass-card rounded-3xl p-6 hover-scale pulse-glow">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-semibold text-white">Your Poem 📜</h3>
+           <h3 className="text-2xl font-semibold text-purple-light">Your Poem 📜</h3>
         <Button 
           onClick={handleCopy}
           size="icon"
@@ -39,7 +39,7 @@ export default function PoemCard({ poem }: PoemCardProps) {
       <div className="space-y-4">
         <div className="text-center">
           <h4 className="text-xl font-semibold text-pink-accent mb-4">{title}</h4>
-          <div className="text-cream leading-relaxed space-y-2 italic text-lg whitespace-pre-line">
+          <div className="text-purple-deep leading-relaxed space-y-2 italic text-lg whitespace-pre-line">
             {content}
           </div>
         </div>

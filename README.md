@@ -159,12 +159,11 @@ SESSION_SECRET=your_session_secret
 ## Work Needs to Be Done
 - Integrate OpenAI API for generating poems, moodboards, and outfit descriptions (see `server/services/openai.ts`).
 - Integrate Spotify API for playlist generation (requires Spotify developer credentials and API integration).
-- Complete Journal page UI/UX and connect to backend for saving entries.
+- Complete Journal page UI/UX if you want to change it and connect to backend for saving entries.
 - Polish user profile/history page for better navigation and filtering.
 - Add error handling and loading states to all major flows.
-- Improve mobile responsiveness and accessibility.
-- Write more tests for backend and frontend components.
-- Add documentation for API endpoints and data models.
+- Fix mood selector page.
+- Do update read.me for other team mates
 
 ---
 

@@ -30,13 +30,13 @@ export default function LandingPage() {
         </div>
         {/* Animated Title */}
         <div className="space-y-4 text-center">
-          <h1 className="text-7xl md:text-8xl font-bold text-purple-light text-glow tracking-wider" style={{textShadow: '0 2px 8px #3a185c'}}>
+          <h1 className="text-7xl md:text-8xl font-bold text-purple-300 text-glow tracking-wider" style={{textShadow: '0 2px 8px #3a185c'}}>
             Muse<span style={{color: '#f7b2e6'}}>Mood</span>
           </h1>
           <p className="text-2xl md:text-3xl font-light tracking-wide text-purple-light" style={{color: '#e6e0f6', textShadow: '0 1px 4px #3a185c'}}>
             Your AI-Powered Aesthetic Generator ✨
           </p>
-          <p className="text-lg max-w-2xl mx-auto leading-relaxed text-pink-accent" style={{textShadow: '0 1px 4px #3a185c'}}>
+          <p className="text-lg max-w-2xl mx-auto  text-purple-300 leading-relaxed text-pink-accent" style={{textShadow: '0 1px 4px #3a185c'}}>
             Transform your emotions into a complete sensory experience with AI-generated outfits, moodboards, poems, and playlists
           </p>
         </div>

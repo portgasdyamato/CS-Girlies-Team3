@@ -52,11 +52,11 @@ export default function OutfitCard({ outfit }: OutfitCardProps) {
   return (
     <div className="glass-card rounded-3xl p-6 hover-scale pulse-glow">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-semibold text-purple-light">Your Outfit ✨</h3>
+        <h3 className="text-2xl font-semibold text-purple-100">Your Outfit ✨</h3>
         <Button 
           onClick={handleDownload}
           size="icon"
-          className="glass-card rounded-full text-pink-accent hover-scale border-0"
+          className="glass-card rounded-full text-rose-400 hover-scale border-0"
         >
           <Download className="w-5 h-5" />
         </Button>

@@ -4,7 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import LandingPage from "@/pages/landing";
-import MoodSelector from "@/pages/mood-selector";
+import EnhancedMoodSelector from "@/pages/mood-selector";
 import JournalEntry from "@/pages/journal-entry";
 import Results from "@/pages/results";
 import ProfilePage from "@/pages/profile";
@@ -46,13 +46,13 @@ function Router() {
         <Switch>
           <Route path="/" component={() => <LandingPage />} />
           <Route path="/profile" component={() => <ProfilePage />} />
-          <Route path="/mood-selector" component={() => 
-            <MoodSelector 
+          <Route path="/mood-selector" component={() => (
+            <EnhancedMoodSelector
               selectedMood={appState.selectedMood}
               selectedEmoji={appState.selectedEmoji}
               onMoodChange={(mood, emoji) => updateAppState({ selectedMood: mood, selectedEmoji: emoji })}
-            />} 
-          />
+            />
+          )} />
           <Route path="/journal" component={() => 
             <JournalEntry 
               selectedMood={appState.selectedMood}

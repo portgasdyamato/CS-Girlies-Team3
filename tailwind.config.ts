@@ -61,6 +61,14 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        /* Dreamy Gen Z purple gradient colors */
+        purple1: '#a18cd1',
+        purple2: '#b993d6',
+        purple3: '#8ca6db',
+        purple4: '#fbc2eb',
+      },
+      backgroundImage: {
+        'dreamy-purple': 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 40%, #b993d6 70%, #8ca6db 100%)',
       },
       keyframes: {
         "accordion-down": {

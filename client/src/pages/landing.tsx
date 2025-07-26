@@ -14,18 +14,18 @@ export default function LandingPage() {
         {/* Floating Icons */}
         <div className="absolute left-0 top-1/3">
           <div className="w-20 h-20 glass-card rounded-2xl flex items-center justify-center shadow-xl border-pink-accent bg-[rgba(40,0,60,0.85)]">
-            <Palette className="w-10 h-10" style={{color: '#a259c6'}} />
+            <Palette className="w-10 h-10" style={{color: '#b993d6'}} />
           </div>
         </div>
         <div className="absolute right-0 top-1/3">
           <div className="w-20 h-20 glass-card rounded-2xl flex items-center justify-center shadow-xl border-pink-accent bg-[rgba(40,0,60,0.85)]">
-            <Music className="w-10 h-10" style={{color: '#a259c6'}} />
+            <Music className="w-10 h-10" style={{color: '#b993d6'}} />
           </div>
         </div>
         {/* Floating Logo */}
         <div className="floating mb-8">
           <div className="w-32 h-32 glass-card rounded-full flex items-center justify-center pulse-glow shadow-2xl border-pink-accent bg-[rgba(40,0,60,0.85)]">
-            <Sparkles className="w-16 h-16" style={{color: '#f7b2e6'}} />
+            <Sparkles className="w-16 h-16" style={{color: '#fbc2eb'}} />
           </div>
         </div>
         {/* Animated Title */}
@@ -44,7 +44,7 @@ export default function LandingPage() {
         <div className="pt-8 space-y-4 w-full flex flex-col items-center">
           <Button 
             onClick={() => setLocation("/mood-selector")}
-            className="px-12 py-4 pink-gradient text-purple-light font-semibold text-xl rounded-full hover-scale transition-all duration-300 shadow-2xl border-0"
+            className="px-12 py-4 btn-purple font-semibold text-xl rounded-full hover-scale transition-all duration-300 shadow-2xl border-0"
             size="lg"
           >
             <span className="mr-3">💖</span>

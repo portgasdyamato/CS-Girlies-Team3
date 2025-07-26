@@ -13,15 +13,66 @@ interface MoodSelectorProps {
   onMoodChange: (mood: string, emoji: string) => void;
 }
 
-export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMoodChange }: MoodSelectorProps) {
+function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMoodChange }: MoodSelectorProps) {
   const [, setLocation] = useLocation();
   const [customMood, setCustomMood] = useState(selectedMood);
   const [hoveredMood, setHoveredMood] = useState<string | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  const { data: moodSuggestions = [] } = useQuery<MoodSuggestion[]>({
+  // Mood categories
+  const moodCategories = [
+    { name: "All", color: "bg-pink-gradient" },
+    { name: "Aesthetic", color: "bg-gradient-bg" },
+    { name: "Vibe", color: "bg-purple-light" },
+    { name: "Energy", color: "bg-pink-accent" },
+    { name: "Era", color: "bg-purple-elevated" },
+    { name: "Core", color: "bg-lavender" },
+    { name: "Emotion", color: "bg-pink-light" },
+  ];
+
+  // Add category to each mood
+  const fallbackMoods: (MoodSuggestion & { category: string })[] = [
+    // Aesthetic, Vibe, etc.
+    { mood: "soft grunge", emoji: "🖤", description: "Edgy but soft", category: "Aesthetic" },
+    { mood: "cottagecore", emoji: "🌸", description: "Nature & cozy", category: "Core" },
+    { mood: "dark feminine", emoji: "🦋", description: "Powerful & mysterious", category: "Energy" },
+    { mood: "y2k baddie", emoji: "💿", description: "Retro & bold", category: "Era" },
+    { mood: "ethereal fairy", emoji: "🧚", description: "Dreamy & magical", category: "Vibe" },
+    { mood: "minimalist chic", emoji: "🤍", description: "Clean & elegant", category: "Aesthetic" },
+    { mood: "vintage romantic", emoji: "🎀", description: "Classic & sweet", category: "Era" },
+    { mood: "cyberpunk goddess", emoji: "🤖", description: "Futuristic & fierce", category: "Vibe" },
+    { mood: "bohemian wanderer", emoji: "🌻", description: "Free spirit", category: "Core" },
+    { mood: "gothic elegance", emoji: "🕸️", description: "Dark & refined", category: "Aesthetic" },
+    // Emotions
+    { mood: "happy", emoji: "😊", description: "Feeling joyful and light", category: "Emotion" },
+    { mood: "sad", emoji: "😢", description: "Feeling down or blue", category: "Emotion" },
+    { mood: "excited", emoji: "🤩", description: "Eager and thrilled", category: "Emotion" },
+    { mood: "calm", emoji: "😌", description: "Peaceful and relaxed", category: "Emotion" },
+    { mood: "anxious", emoji: "😰", description: "Nervous or uneasy", category: "Emotion" },
+    { mood: "angry", emoji: "😡", description: "Frustrated or mad", category: "Emotion" },
+    { mood: "confident", emoji: "😎", description: "Self-assured and bold", category: "Emotion" },
+    { mood: "tired", emoji: "🥱", description: "Sleepy or low energy", category: "Emotion" },
+    { mood: "in love", emoji: "😍", description: "Romantic and affectionate", category: "Emotion" },
+    { mood: "hopeful", emoji: "🌈", description: "Optimistic and positive", category: "Emotion" },
+    { mood: "lonely", emoji: "🥺", description: "Wanting connection", category: "Emotion" },
+    { mood: "grateful", emoji: "🙏", description: "Thankful and appreciative", category: "Emotion" },
+    { mood: "creative", emoji: "🎨", description: "Inspired and imaginative", category: "Emotion" },
+    { mood: "bored", emoji: "😐", description: "Uninterested or restless", category: "Emotion" },
+    { mood: "silly", emoji: "🤪", description: "Playful and goofy", category: "Emotion" },
+    { mood: "shy", emoji: "😳", description: "Reserved or timid", category: "Emotion" },
+    { mood: "proud", emoji: "🥰", description: "Satisfied and accomplished", category: "Emotion" },
+    { mood: "overwhelmed", emoji: "😵", description: "Stressed or overloaded", category: "Emotion" },
+    { mood: "peaceful", emoji: "🕊️", description: "Serene and tranquil", category: "Emotion" },
+  ];
+  const { data: apiMoods } = useQuery<MoodSuggestion[]>({
     queryKey: ["/api/mood-suggestions"],
   });
+  // If API moods exist, add a default category
+  const apiMoodsWithCategory = Array.isArray(apiMoods)
+    ? apiMoods.map(m => ({ ...m, category: "Aesthetic" }))
+    : [];
+  const moodSuggestions = apiMoodsWithCategory.length > 0 ? apiMoodsWithCategory : fallbackMoods;
 
   // Mood suggestions for auto-complete
   const customSuggestions = [
@@ -40,8 +91,6 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
   const handleEmojiSelect = (mood: string, emoji: string) => {
     onMoodChange(mood, emoji);
     setCustomMood(mood);
-    
-    // Add subtle haptic feedback if available
     if (navigator.vibrate) {
       navigator.vibrate(50);
     }
@@ -71,8 +120,16 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
     suggestion !== customMood
   );
 
+  // Filter moods by category
+  const filteredMoods = selectedCategory === "All"
+    ? moodSuggestions
+    : moodSuggestions.filter(m => m.category === selectedCategory);
+
   return (
     <section className="min-h-screen p-6 page-enter">
+      <div style={{background: '#fbc2eb', color: '#7b2ff2', padding: '1em', textAlign: 'center', fontWeight: 'bold', fontSize: '1.2em', borderRadius: '12px', marginBottom: '1em', boxShadow: '0 2px 12px #b993d6'}}>
+        MuseMood Mood Selector is rendering! If you see this, the component is loaded.
+      </div>
       {/* Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="sparkle" style={{ top: '15%', left: '15%', animationDelay: '0s' }}></div>
@@ -83,7 +140,7 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Enhanced Header */}
-        <div className="text-center mb-16 space-y-6">
+        <div className="text-center mb-10 space-y-6">
           <div className="floating">
             <Sparkles className="w-16 h-16 text-pink-accent mx-auto mb-4 pulse-glow" />
           </div>
@@ -91,15 +148,21 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
             How are you feeling? 💫
           </h2>
           <p className="text-xl md:text-2xl text-purple-light max-w-2xl mx-auto leading-relaxed">
-            Select your mood or describe your unique vibe
+            Select your mood category, then pick a mood or describe your unique vibe
           </p>
-          
-          {/* Progress indicator */}
-          <div className="flex justify-center space-x-2 mt-8">
-            <div className="w-8 h-2 bg-pink-accent rounded-full"></div>
-            <div className="w-8 h-2 bg-purple-light opacity-30 rounded-full"></div>
-            <div className="w-8 h-2 bg-purple-light opacity-30 rounded-full"></div>
-          </div>
+        </div>
+
+        {/* Mood Category Selector */}
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {moodCategories.map(cat => (
+            <button
+              key={cat.name}
+              onClick={() => setSelectedCategory(cat.name)}
+              className={`px-5 py-2 rounded-full font-semibold text-lg interactive-button focus-ring transition-all duration-200 border-0 shadow-md ${selectedCategory === cat.name ? "pink-gradient text-purple-deep" : "glass-card text-purple-light"}`}
+            >
+              {cat.name}
+            </button>
+          ))}
         </div>
 
         {/* Enhanced Mood Grid */}
@@ -109,9 +172,9 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
             <h3 className="text-2xl font-semibold text-purple-light">Choose Your Mood</h3>
             <Heart className="w-6 h-6 text-pink-accent ml-3" />
           </div>
-          
+
           <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-8 gap-4 mb-10">
-            {moodSuggestions.map((suggestion) => (
+            {filteredMoods.map((suggestion) => (
               <div
                 key={suggestion.mood}
                 className={`mood-emoji text-5xl md:text-6xl p-4 rounded-2xl glass-card text-center cursor-pointer interactive-button focus-ring ${
@@ -140,14 +203,14 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
               </div>
             ))}
           </div>
-          
+
           {/* Enhanced Custom Mood Input */}
           <div className="space-y-6 relative">
             <Label className="text-purple-light text-lg font-medium flex items-center">
               <Sparkles className="w-5 h-5 mr-2" />
               Or describe your unique vibe:
             </Label>
-            
+
             <div className="relative">
               <Input 
                 value={customMood}
@@ -157,12 +220,12 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
                 maxLength={100}
                 onFocus={() => setShowSuggestions(true)}
               />
-              
+
               {/* Character count */}
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-purple-light opacity-60">
                 {customMood.length}/100
               </div>
-              
+
               {/* Auto-complete suggestions */}
               {showSuggestions && filteredSuggestions.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-2 glass-card rounded-xl p-2 z-20 max-h-48 overflow-y-auto">
@@ -178,7 +241,7 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
                 </div>
               )}
             </div>
-            
+
             {/* Enhanced suggestions */}
             <div className="text-sm text-purple-light space-y-2">
               <p className="font-medium">Popular vibes:</p>
@@ -207,7 +270,7 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
             <ArrowRight className="w-6 h-6 mr-3" />
             Continue to Journal
           </Button>
-          
+
           {customMood.trim() && (
             <p className="text-purple-light text-sm animate-fade-in">
               Perfect! Let's explore your <span className="text-pink-accent font-medium">"{customMood}"</span> aesthetic ✨
@@ -219,14 +282,5 @@ export default function EnhancedMoodSelector({ selectedMood, selectedEmoji, onMo
   );
 }
 
-// Add this CSS for the fade-in animation
-const styles = `
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out;
-  }
-`;
+
+export default EnhancedMoodSelector;

@@ -1,3 +1,6 @@
+
+# CS-Girlies-Team3
+
 # MuseMood
 
 MuseMood is a fullstack hackathon project that combines an AI-powered aesthetic generator with a mood-based journaling and creative platform. It uses React, Express, Tailwind CSS, Drizzle ORM, and Vite, and is ready for deployment on Render.
@@ -151,11 +154,7 @@ SESSION_SECRET=your_session_secret
   6. Run `npm run build` to build the frontend for production.
   7. Run `npm run dev` for development or `npm run start` for fullstack server.
 - **Help:** If stuck, check code comments, README, or ask in the team chat. Document solutions for future reference.
-## Contact
-For questions or help, reach out to the team lead or check the code comments for guidance.
-
----
----
+  ---
 
 ## Work Needs to Be Done
 - Integrate OpenAI API for generating poems, moodboards, and outfit descriptions (see `server/services/openai.ts`).
@@ -205,7 +204,10 @@ For questions or help, reach out to the team lead or check the code comments for
 - If stuck, check code comments, README, or ask in the team chat.
 Happy hacking! 🚀
 #
-# CS-Girlies-Team3
+## Contact
+For questions or help, reach out to the team lead or check the code comments for guidance.
+
+---
 
 
 

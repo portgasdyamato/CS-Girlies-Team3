@@ -117,16 +117,44 @@ SESSION_SECRET=your_session_secret
 - `npm run db:push` — Push Drizzle ORM migrations
 
 ---
+---
 
+## Additional Coding & Collaboration Tips
+- **Branching:** Always create a new branch for features or fixes. Use clear names (e.g., `feature/spotify-integration`, `fix/journal-bug`).
+- **Pull Requests:** Open PRs for all changes. Add a summary and tag reviewers. Use GitHub Discussions for questions.
+- **Code Reviews:** Review teammates' PRs for logic, style, and security. Leave constructive comments.
+- **Commit Messages:** Write clear, descriptive commit messages (e.g., `Add Spotify API integration for playlists`).
+- **Environment Variables:** Never commit `.env` files. Share secrets securely (e.g., via Render dashboard or encrypted chat).
+- **Testing:** Use Postman, VS Code REST Client, or Insomnia for API testing. For frontend, use React Testing Library for components.
+- **Debugging:** Use `console.log` for quick debugging, but remove before merging. For backend, use VS Code debugger or `node --inspect`.
+- **Error Handling:** Always handle errors in API routes and show user-friendly messages in the UI.
+- **Documentation:** Update README and code comments when adding new features or APIs.
+- **Design Consistency:** Use shared UI components and Tailwind classes. Refer to `index.css` for theme variables.
+- **Accessibility:** Use semantic HTML, ARIA labels, and test with screen readers for inclusivity.
+- **Mobile First:** Test UI on mobile devices/emulators. Use responsive Tailwind classes.
+- **Database:** For schema changes, update `shared/schema.ts` and run Drizzle migrations. Document changes in PRs.
+- **API Rate Limits:** Be mindful of OpenAI and Spotify API rate limits. Implement caching or retries if needed.
+- **Resources:**
+  - [OpenAI API Docs](https://platform.openai.com/docs)
+  - [Spotify API Docs](https://developer.spotify.com/documentation/web-api/)
+  - [Render Docs](https://render.com/docs)
+  - [Drizzle ORM Docs](https://orm.drizzle.team/docs)
+  - [Tailwind CSS Docs](https://tailwindcss.com/docs)
+  - [React Docs](https://react.dev/)
+- **Team Communication:** Use GitHub Issues for bugs/tasks, and a team chat (Discord/Slack/WhatsApp) for quick questions.
+**Onboarding:** New members should:
+  1. Read this README.
+  2. Clone the repo.
+  3. Set up `.env` with required secrets.
+  4. Run `npm install` to install dependencies.
+  5. Run `npm run db:push` to apply database migrations (Drizzle ORM).
+  6. Run `npm run build` to build the frontend for production.
+  7. Run `npm run dev` for development or `npm run start` for fullstack server.
+- **Help:** If stuck, check code comments, README, or ask in the team chat. Document solutions for future reference.
 ## Contact
 For questions or help, reach out to the team lead or check the code comments for guidance.
 
 ---
-
-Happy hacking! 🚀
-#
-# CS-Girlies-Team3
-
 ---
 
 ## Work Needs to Be Done
@@ -175,39 +203,9 @@ Happy hacking! 🚀
 - Always pull latest changes before starting new work and resolve merge conflicts promptly.
 - Add comments to complex logic and keep code modular for easier collaboration.
 - If stuck, check code comments, README, or ask in the team chat.
+Happy hacking! 🚀
+#
 # CS-Girlies-Team3
 
----
 
-## Additional Coding & Collaboration Tips
-- **Branching:** Always create a new branch for features or fixes. Use clear names (e.g., `feature/spotify-integration`, `fix/journal-bug`).
-- **Pull Requests:** Open PRs for all changes. Add a summary and tag reviewers. Use GitHub Discussions for questions.
-- **Code Reviews:** Review teammates' PRs for logic, style, and security. Leave constructive comments.
-- **Commit Messages:** Write clear, descriptive commit messages (e.g., `Add Spotify API integration for playlists`).
-- **Environment Variables:** Never commit `.env` files. Share secrets securely (e.g., via Render dashboard or encrypted chat).
-- **Testing:** Use Postman, VS Code REST Client, or Insomnia for API testing. For frontend, use React Testing Library for components.
-- **Debugging:** Use `console.log` for quick debugging, but remove before merging. For backend, use VS Code debugger or `node --inspect`.
-- **Error Handling:** Always handle errors in API routes and show user-friendly messages in the UI.
-- **Documentation:** Update README and code comments when adding new features or APIs.
-- **Design Consistency:** Use shared UI components and Tailwind classes. Refer to `index.css` for theme variables.
-- **Accessibility:** Use semantic HTML, ARIA labels, and test with screen readers for inclusivity.
-- **Mobile First:** Test UI on mobile devices/emulators. Use responsive Tailwind classes.
-- **Database:** For schema changes, update `shared/schema.ts` and run Drizzle migrations. Document changes in PRs.
-- **API Rate Limits:** Be mindful of OpenAI and Spotify API rate limits. Implement caching or retries if needed.
-- **Resources:**
-  - [OpenAI API Docs](https://platform.openai.com/docs)
-  - [Spotify API Docs](https://developer.spotify.com/documentation/web-api/)
-  - [Render Docs](https://render.com/docs)
-  - [Drizzle ORM Docs](https://orm.drizzle.team/docs)
-  - [Tailwind CSS Docs](https://tailwindcss.com/docs)
-  - [React Docs](https://react.dev/)
-- **Team Communication:** Use GitHub Issues for bugs/tasks, and a team chat (Discord/Slack/WhatsApp) for quick questions.
-**Onboarding:** New members should:
-  1. Read this README.
-  2. Clone the repo.
-  3. Set up `.env` with required secrets.
-  4. Run `npm install` to install dependencies.
-  5. Run `npm run db:push` to apply database migrations (Drizzle ORM).
-  6. Run `npm run build` to build the frontend for production.
-  7. Run `npm run dev` for development or `npm run start` for fullstack server.
-- **Help:** If stuck, check code comments, README, or ask in the team chat. Document solutions for future reference.
+

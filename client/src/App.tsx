@@ -52,6 +52,21 @@ function Router() {
           <Route path="/diary-cover" component={() => <DiaryCover />} />
           <Route path="/journal-entry" component={() => <JournalEntry />} />
           <Route path="/past-entries" component={() => <PastEntries />} />
+          <Route
+            path="/results"
+            component={() => (
+              <Results
+                generationResult={appState.generationResult}
+                selectedMood={appState.selectedMood}
+                onStartOver={() => setAppState({
+                  selectedMood: "",
+                  selectedEmoji: "",
+                  journalEntry: "",
+                  generationResult: null,
+                })}
+              />
+            )}
+          />
           <Route component={NotFound} />
         </Switch>
         <FloatingNavigation />

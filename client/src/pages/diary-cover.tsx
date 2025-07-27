@@ -265,7 +265,7 @@ export default function DiaryCover() {
                 </div>
 
                 <motion.button 
-                  className="px-10 py-4 text-xl rounded-xl font-semibold transition-all duration-300 mb-4"
+                  className="px-10 py-4 text-xl rounded-xl font-semibold transition-all duration-300 mb-4 mr-4"
                   style={{ 
                     background: `linear-gradient(135deg, ${currentTheme.textColor}, ${currentTheme.coverColor})`,
                     color: 'white',

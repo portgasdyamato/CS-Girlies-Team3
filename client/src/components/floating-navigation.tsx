@@ -76,15 +76,15 @@ export default function FloatingNavigation() {
           <Heart className="w-7 h-7" />
         </Button>
         <Button
-          onClick={() => setLocation("/journal")}
+          onClick={() => setLocation("/journal-entry")}
           size="icon"
           className={`interactive-button w-14 h-14 rounded-full border-0 shadow-lg transition-all duration-300 jersey-10-regular text-2xl ${
-            location === "/journal" ? "bg-pastel-yellow text-[#7b2ff2]" : "bg-transparent text-purple-light hover:bg-pastel-yellow hover:text-[#7b2ff2]"
+            location === "/journal-entry" ? "bg-pastel-yellow text-[#7b2ff2]" : "bg-transparent text-purple-light hover:bg-pastel-yellow hover:text-[#7b2ff2]"
           }`}
           style={{
-            boxShadow: location === "/journal" ? '0 0 24px #ffe082, 0 0 32px #b993d6' : '0 2px 8px #b993d6',
+            boxShadow: location === "/journal-entry" ? '0 0 24px #ffe082, 0 0 32px #b993d6' : '0 2px 8px #b993d6',
             backdropFilter: 'blur(12px) saturate(120%)',
-            border: location === "/journal" ? '2px solid #ffe082' : '2px solid #e5dcf2',
+            border: location === "/journal-entry" ? '2px solid #ffe082' : '2px solid #e5dcf2',
           }}
         >
           <Book className="w-7 h-7" />

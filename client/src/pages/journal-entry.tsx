@@ -429,12 +429,23 @@ function JournalEntry() {
 
                 {/* Right Page (Writing Area) */}
                 <motion.div
-                  className="w-1/2 p-8 flex flex-col"
+                  className="w-1/2 p-8 flex flex-col relative"
                   style={{ background: currentTheme.pageColor }}
                   initial={{ x: 20, opacity: 0.8 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
                 >
+                  {/* Generation Button - top right of right page */}
+                  <button
+                    className="absolute top-4 right-4 z-30 w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-indigo-500 shadow-lg flex items-center justify-center hover:scale-105 transition-transform"
+                    style={{ boxShadow: '0 4px 24px rgba(80,0,160,0.12)' }}
+                    aria-label="Generate"
+                    onClick={() => setLocation('/results')}
+                  >
+                    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16 4l2.5 7.5L26 12l-7.5 2.5L16 28l-2.5-13.5L6 12l7.5-2.5L16 4z" fill="#fff"/>
+                    </svg>
+                  </button>
                   {/* Page Lines Background */}
                   <div 
                     className="absolute inset-0 pointer-events-none opacity-10"

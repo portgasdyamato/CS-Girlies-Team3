@@ -111,7 +111,7 @@ export default function JournalEntry({
               value={journalEntry}
               onChange={(e) => onJournalChange(e.target.value)}
               placeholder={`Today I'm feeling so ${selectedMood}... describe your emotions, your style goals, what's inspiring you right now...`}
-              className="w-full h-64 p-6 rounded-2xl glass-card text-purple-light placeholder-purple-light bg-transparent border-2 border-lavender focus:border-pink-accent outline-none transition-all duration-300 resize-none leading-relaxed"
+              className="w-full h-64 p-6 rounded-2xl glass-card text-purple-light placeholder-purple-light bg-transparent border-2 border-lavender focus:border-pink-accent outline-none transition-all duration-300 resize-none leading-relaxed font-default"
               maxLength={500}
             />
             

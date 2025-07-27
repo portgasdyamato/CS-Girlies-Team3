@@ -48,10 +48,10 @@ export default function Results({ generationResult, selectedMood, onStartOver, s
 
   if (!currentResult) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="text-center glass-card rounded-3xl p-8">
-          <h2 className="text-2xl font-bold text-purple-deep mb-4">No results to show</h2>
-          <p className="text-purple-deep mb-6">Start your mood journey to see your generated aesthetic.</p>
+      <div className="min-h-screen flex items-center justify-center p-6 bitcount-grid-double-uniquifier">
+        <div className="text-center glass-card rounded-3xl p-8 bitcount-grid-double-uniquifier">
+          <h2 className="text-2xl font-bold text-purple-deep mb-4 bitcount-grid-double-uniquifier">No results to show</h2>
+          <p className="text-purple-deep mb-6 bitcount-grid-double-uniquifier">Start your mood journey to see your generated aesthetic.</p>
           <Button onClick={() => setLocation("/")} className="pink-gradient text-purple-deep border-0">
             Start Over
           </Button>
@@ -93,14 +93,14 @@ export default function Results({ generationResult, selectedMood, onStartOver, s
   };
 
   return (
-    <section className="min-h-screen p-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="min-h-screen p-6 bitcount-grid-double-uniquifier">
+      <div className="max-w-7xl mx-auto bitcount-grid-double-uniquifier">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold text-purple-deep text-glow mb-4">
+        <div className="text-center mb-12 bitcount-grid-double-uniquifier">
+          <h2 className="text-5xl font-bold text-purple-deep text-glow mb-4 bitcount-grid-double-uniquifier">
             Your Aesthetic Universe ✨
           </h2>
-          <p className="text-xl text-purple-deep">
+          <p className="text-xl text-purple-deep bitcount-grid-double-uniquifier">
             AI has crafted your complete mood experience
           </p>
         </div>

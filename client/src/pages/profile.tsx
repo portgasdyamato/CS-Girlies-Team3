@@ -25,11 +25,11 @@ export default function ProfilePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="glass-card rounded-3xl p-8 text-center">
+      <div className="min-h-screen flex items-center justify-center p-6 bitcount-grid-double-uniquifier">
+        <div className="glass-card rounded-3xl p-8 text-center bitcount-grid-double-uniquifier">
           <div className="animate-pulse">
             <Sparkles className="w-16 h-16 text-pink-accent mx-auto mb-4" />
-            <p className="text-purple-light text-lg">Loading your profile...</p>
+            <p className="text-purple-light text-lg bitcount-grid-double-uniquifier">Loading your profile...</p>
           </div>
         </div>
       </div>
@@ -39,10 +39,10 @@ export default function ProfilePage() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="text-center glass-card rounded-3xl p-8 max-w-md">
+        <div className="text-center glass-card rounded-3xl p-8 max-w-md bitcount-grid-double-uniquifier">
           <Heart className="w-16 h-16 text-pink-accent mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-purple-deep mb-4">Sign in to MuseMood</h2>
-          <p className="text-purple-deep mb-6">
+          <h2 className="text-2xl font-bold text-purple-deep mb-4 bitcount-grid-double-uniquifier">Sign in to MuseMood</h2>
+          <p className="text-purple-deep mb-6 bitcount-grid-double-uniquifier">
             Create an account to save your mood journeys, track your aesthetic evolution, and access your personalized content library.
           </p>
           <AuthButton />
@@ -61,10 +61,10 @@ export default function ProfilePage() {
   }
 
   return (
-    <section className="min-h-screen p-6">
-      <div className="max-w-6xl mx-auto">
+    <section className="min-h-screen p-6 bitcount-grid-double-uniquifier">
+      <div className="max-w-6xl mx-auto bitcount-grid-double-uniquifier">
         {/* Profile Header */}
-        <div className="glass-card rounded-3xl p-8 mb-8 pulse-glow">
+        <div className="glass-card rounded-3xl p-8 mb-8 pulse-glow bitcount-grid-double-uniquifier">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4">
               {user?.profileImageUrl ? (
@@ -79,7 +79,7 @@ export default function ProfilePage() {
                 </div>
               )}
               <div>
-                <h1 className="text-3xl font-bold text-purple-deep">
+                <h1 className="text-3xl font-bold text-purple-deep bitcount-grid-double-uniquifier">
                   {user?.firstName && user?.lastName 
                     ? `${user.firstName} ${user.lastName}` 
                     : user?.firstName || user?.email?.split('@')[0] || 'MuseMood User'

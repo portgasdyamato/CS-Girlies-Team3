@@ -5,7 +5,8 @@ import axios from 'axios';
 
 // Same mood themes as diary cover for consistency
 const moodThemes = {
-  happy: {
+  // ...existing code...
+   happy: {
     background: 'linear-gradient(135deg, #fff9c4 0%, #ffe082 50%, #ffcc02 100%)',
     pageColor: '#fffef7',
     decoration: '☀️',
@@ -71,8 +72,13 @@ const moodThemes = {
   }
 };
 
-export default function JournalEntry() {
-  const [entry, setEntry] = useState('');
+
+ 
+
+function JournalEntry() {
+  // ...all hooks and logic...
+  // ...existing code...
+    const [entry, setEntry] = useState('');
   const [, setLocation] = useLocation();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -81,6 +87,16 @@ export default function JournalEntry() {
   const [isPageOpen, setIsPageOpen] = useState(false);
   const [wordCount, setWordCount] = useState(0);
   const [currentDate, setCurrentDate] = useState('');
+  const [showPastEntries, setShowPastEntries] = useState(false);
+  type MoodType = keyof typeof moodThemes;
+  interface PastEntry {
+    entry: string;
+    timestamp: string;
+    mood: MoodType;
+    wordCount: number;
+  }
+  const [pastEntries, setPastEntries] = useState<PastEntry[]>([]);
+  const [selectedEntry, setSelectedEntry] = useState<PastEntry | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -101,6 +117,12 @@ export default function JournalEntry() {
 
     // Animate page opening
     setTimeout(() => setIsPageOpen(true), 300);
+
+    // Load past entries from localStorage
+    const storedEntries = localStorage.getItem('journalEntries');
+    if (storedEntries) {
+      setPastEntries(JSON.parse(storedEntries));
+    }
   }, []);
 
   useEffect(() => {
@@ -112,8 +134,10 @@ export default function JournalEntry() {
   const currentTheme = moodThemes[selectedMood as keyof typeof moodThemes];
 
   const handleSave = async () => {
-    if (!entry.trim()) return;
-    
+    if (!entry.trim()) {
+      setError('Entry cannot be empty.');
+      return;
+    }
     setSaving(true);
     setError('');
     try {
@@ -123,7 +147,18 @@ export default function JournalEntry() {
         mood: selectedMood,
         wordCount 
       });
-      
+
+      // Save to localStorage
+      const newEntry = {
+        entry,
+        timestamp: new Date().toISOString(),
+        mood: selectedMood as MoodType,
+        wordCount
+      };
+      const updatedEntries = [newEntry, ...pastEntries];
+      setPastEntries(updatedEntries);
+      localStorage.setItem('journalEntries', JSON.stringify(updatedEntries));
+
       // Show success animation
       if (textareaRef.current) {
         textareaRef.current.style.background = 'rgba(76, 175, 80, 0.1)';
@@ -133,13 +168,20 @@ export default function JournalEntry() {
           }
         }, 1000);
       }
-      
+
       setEntry('');
       setWordCount(0);
     } catch (e) {
       setError('Failed to save entry. Please try again.');
     }
     setSaving(false);
+  };
+
+  // Delete entry by index
+  const handleDeleteEntry = (idx: number) => {
+    const updatedEntries = pastEntries.filter((_, i) => i !== idx);
+    setPastEntries(updatedEntries);
+    localStorage.setItem('journalEntries', JSON.stringify(updatedEntries));
   };
 
   const handleBack = () => {
@@ -159,6 +201,7 @@ export default function JournalEntry() {
       className="min-h-screen flex flex-col items-center justify-center eb-garamond-uniquifier relative overflow-hidden"
       style={{ background: currentTheme.background }}
     >
+      {/* ...existing JSX... */}
       {/* Background pattern */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-30"
@@ -190,6 +233,99 @@ export default function JournalEntry() {
           </motion.div>
         ))}
       </div>
+
+      {/* Past Entries Modal */}
+      <AnimatePresence>
+        {showPastEntries && (
+          <motion.div
+            className="fixed inset-0 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={selectedEntry ? {
+              background: moodThemes[selectedEntry.mood]?.background || 'rgba(0,0,0,0.4)'
+            } : {
+              background: 'rgba(0,0,0,0.4)'
+            }}
+          >
+            {/* If an entry is selected, show full entry view */}
+            {selectedEntry ? (
+              <motion.div
+                className="rounded-2xl shadow-2xl p-8 max-w-xl w-full relative"
+                initial={{ scale: 0.95, y: 40, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                exit={{ scale: 0.95, y: 40, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  background: moodThemes[selectedEntry.mood]?.pageColor,
+                  color: moodThemes[selectedEntry.mood]?.textColor,
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+                  position: 'relative'
+                }}
+              >
+                {/* Mood pattern background */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-20 rounded-2xl"
+                  style={{ background: moodThemes[selectedEntry.mood]?.pattern }}
+                />
+                <div className="flex items-center gap-2 mb-2 relative z-10">
+                  <span className="text-3xl">{moodThemes[selectedEntry.mood]?.decoration || '📝'}</span>
+                  <span className="font-semibold text-md" style={{color: moodThemes[selectedEntry.mood]?.textColor}}>{new Date(selectedEntry.timestamp).toLocaleString()}</span>
+                  <span className="ml-auto text-xs" style={{color: moodThemes[selectedEntry.mood]?.accentColor}}>Words: {selectedEntry.wordCount}</span>
+                </div>
+                <div className="text-lg mb-6 whitespace-pre-line relative z-10" style={{fontFamily: 'EB Garamond, serif'}}>{selectedEntry.entry}</div>
+                <button
+                  className="px-4 py-2 rounded-lg font-semibold shadow mr-2"
+                  style={{background: moodThemes[selectedEntry.mood]?.accentColor, color: '#fff'}}
+                  onClick={() => setSelectedEntry(null)}
+                >Back</button>
+                <button
+                  className="px-4 py-2 rounded-lg font-semibold shadow"
+                  style={{background: '#fff', color: moodThemes[selectedEntry.mood]?.accentColor, border: `2px solid ${moodThemes[selectedEntry.mood]?.accentColor}`}}
+                  onClick={() => { handleDeleteEntry(pastEntries.findIndex(e => e === selectedEntry)); setSelectedEntry(null); }}
+                >Delete</button>
+              </motion.div>
+            ) : (
+              <motion.div
+                className="bg-white rounded-2xl shadow-2xl p-8 max-w-xl w-full relative"
+                initial={{ scale: 0.9, y: 40, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                exit={{ scale: 0.9, y: 40, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h3 className="text-2xl font-bold mb-4">📖 Past Entries</h3>
+                {pastEntries.length === 0 ? (
+                  <div className="text-gray-500">No past entries yet.</div>
+                ) : (
+                  <div className="space-y-4 max-h-96 overflow-y-auto">
+                    {pastEntries.map((e, idx) => (
+                      <div key={idx} className="p-4 rounded-lg bg-gray-50 shadow flex flex-col gap-1 cursor-pointer hover:bg-purple-50 transition"
+                        onClick={() => setSelectedEntry(e)}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-2xl">{moodThemes[e.mood]?.decoration || '📝'}</span>
+                          <span className="font-semibold text-sm text-gray-700">{new Date(e.timestamp).toLocaleString()}</span>
+                          <span className="ml-auto text-xs text-gray-400">Words: {e.wordCount}</span>
+                          <button
+                            className="ml-2 px-2 py-1 rounded bg-red-100 text-red-600 text-xs font-bold hover:bg-red-200"
+                            onClick={ev => { ev.stopPropagation(); handleDeleteEntry(idx); }}
+                            aria-label="Delete Entry"
+                          >Delete</button>
+                        </div>
+                        <div className="text-gray-800 text-base line-clamp-2">{e.entry}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <button
+                  className="mt-6 px-4 py-2 rounded-lg bg-purple-500 text-white font-semibold shadow"
+                  onClick={() => setShowPastEntries(false)}
+                >Close</button>
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="flex flex-col items-center w-full max-w-4xl z-10 px-4">
         <AnimatePresence mode="wait">
@@ -378,7 +514,7 @@ export default function JournalEntry() {
                           color: currentTheme.textColor,
                           border: `2px solid ${currentTheme.accentColor}`
                         }}
-                        onClick={() => setLocation('/past-entries')}
+                        onClick={() => setShowPastEntries(true)}
                         whileHover={{ 
                           scale: 1.02,
                           background: 'rgba(0,0,0,0.1)'
@@ -426,3 +562,7 @@ export default function JournalEntry() {
     </div>
   );
 }
+
+export default JournalEntry;
+
+

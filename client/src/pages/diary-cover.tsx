@@ -85,17 +85,23 @@ export default function DiaryCover() {
   const [selectedMood, setSelectedMood] = useState('happy');
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Get mood from URL params or localStorage
+  // Always sync selectedMood with localStorage and update on mount and when localStorage changes
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const moodFromUrl = urlParams.get('mood');
-    const storedMood = localStorage.getItem('selectedMood');
-    
-    if (moodFromUrl && moodThemes[moodFromUrl as keyof typeof moodThemes]) {
-      setSelectedMood(moodFromUrl);
-    } else if (storedMood && moodThemes[storedMood as keyof typeof moodThemes]) {
-      setSelectedMood(storedMood);
-    }
+    const updateMood = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const moodFromUrl = urlParams.get('mood');
+      const storedMood = localStorage.getItem('selectedMood');
+      if (moodFromUrl && moodThemes[moodFromUrl as keyof typeof moodThemes]) {
+        setSelectedMood(moodFromUrl);
+      } else if (storedMood && moodThemes[storedMood as keyof typeof moodThemes]) {
+        setSelectedMood(storedMood);
+      } else {
+        setSelectedMood('happy');
+      }
+    };
+    updateMood();
+    window.addEventListener('storage', updateMood);
+    return () => window.removeEventListener('storage', updateMood);
   }, []);
 
   const currentTheme = moodThemes[selectedMood as keyof typeof moodThemes];
@@ -105,7 +111,7 @@ export default function DiaryCover() {
     setIsAnimating(true);
     setFlipped(true);
     
-    // Store the selected mood for the journal entry
+    // Store the selected mood for the journal entry (ensure latest mood is saved)
     localStorage.setItem('selectedMood', selectedMood);
     
     setTimeout(() => {
@@ -125,12 +131,44 @@ export default function DiaryCover() {
       className="min-h-screen flex flex-col items-center justify-center eb-garamond-uniquifier relative overflow-hidden"
       style={{ background: currentTheme.background }}
     >
+      {/* Mood Selector Dropdown - always visible and above everything */}
+      <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-2 bg-white/80 px-6 py-3 rounded-xl shadow-lg border-2"
+        style={{
+          borderColor: currentTheme.textColor,
+          backdropFilter: 'blur(8px)',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.08)'
+        }}
+      >
+        <label htmlFor="mood-select" className="font-medium text-lg mr-2" style={{color: currentTheme.textColor}}>Choose Mood:</label>
+        <select
+          id="mood-select"
+          value={selectedMood}
+          onChange={e => {
+            setSelectedMood(e.target.value);
+            localStorage.setItem('selectedMood', e.target.value);
+          }}
+          className="px-4 py-2 rounded-lg border-2 font-semibold text-lg"
+          style={{
+            background: '#fff',
+            color: currentTheme.textColor,
+            borderColor: currentTheme.textColor,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+          }}
+        >
+          {Object.entries(moodThemes).map(([mood, theme]) => (
+            <option key={mood} value={mood}>
+              {theme.decoration} {mood.charAt(0).toUpperCase() + mood.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {/* Animated background pattern */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-40"
         style={{ background: currentTheme.pattern }}
       />
-      
+
       {/* Floating particles based on mood */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(8)].map((_, i) => (

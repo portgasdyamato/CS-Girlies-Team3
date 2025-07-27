@@ -100,12 +100,17 @@ function JournalEntry() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    // Get mood from localStorage
-    const storedMood = localStorage.getItem('selectedMood');
-    if (storedMood && moodThemes[storedMood as keyof typeof moodThemes]) {
-      setSelectedMood(storedMood);
-    }
-
+    // Always sync selectedMood with localStorage and update on mount and when localStorage changes
+    const updateMood = () => {
+      const storedMood = localStorage.getItem('selectedMood');
+      if (storedMood && moodThemes[storedMood as keyof typeof moodThemes]) {
+        setSelectedMood(storedMood);
+      } else {
+        setSelectedMood('happy');
+      }
+    };
+    updateMood();
+    window.addEventListener('storage', updateMood);
     // Set current date
     const now = new Date();
     setCurrentDate(now.toLocaleDateString('en-US', { 
@@ -114,15 +119,14 @@ function JournalEntry() {
       month: 'long', 
       day: 'numeric' 
     }));
-
     // Animate page opening
     setTimeout(() => setIsPageOpen(true), 300);
-
     // Load past entries from localStorage
     const storedEntries = localStorage.getItem('journalEntries');
     if (storedEntries) {
       setPastEntries(JSON.parse(storedEntries));
     }
+    return () => window.removeEventListener('storage', updateMood);
   }, []);
 
   useEffect(() => {

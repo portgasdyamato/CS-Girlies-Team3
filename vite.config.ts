@@ -27,4 +27,5 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
+  base: "/CS-Girlies-Team3",
 });

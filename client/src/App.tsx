@@ -11,6 +11,8 @@ import ProfilePage from "@/pages/profile";
 import NotFound from "@/pages/not-found";
 import FloatingNavigation from "@/components/floating-navigation";
 import { useState } from "react";
+import DiaryCover from "@/pages/diary-cover";
+import PastEntries from "@/pages/past-entries";
 
 export interface AppState {
   selectedMood: string;
@@ -46,48 +48,12 @@ function Router() {
         <Switch>
           <Route path="/" component={() => <LandingPage />} />
           <Route path="/profile" component={() => <ProfilePage />} />
-          <Route path="/mood-selector" component={() => (
-            <MoodSelector
-              onMoodSelected={(mood) => updateAppState({ selectedMood: mood.label, selectedEmoji: mood.emoji })}
-            />
-          )} />
-          <Route path="/journal" component={() => 
-            <JournalEntry 
-              selectedMood={appState.selectedMood}
-              selectedEmoji={appState.selectedEmoji}
-              journalEntry={appState.journalEntry}
-              onJournalChange={(entry) => updateAppState({ journalEntry: entry })}
-              onGenerate={(result) => updateAppState({ generationResult: result })}
-            />} 
-          />
-          <Route path="/results" component={() => 
-            <Results 
-              generationResult={appState.generationResult}
-              selectedMood={appState.selectedMood}
-              onStartOver={() => updateAppState({ 
-                selectedMood: "", 
-                selectedEmoji: "", 
-                journalEntry: "", 
-                generationResult: null 
-              })}
-            />} 
-          />
-          <Route path="/sessions/:id" component={({ params }: { params: { id: string } }) => 
-            <Results 
-              generationResult={null}
-              selectedMood=""
-              onStartOver={() => updateAppState({ 
-                selectedMood: "", 
-                selectedEmoji: "", 
-                journalEntry: "", 
-                generationResult: null 
-              })}
-              sessionId={params.id}
-            />} 
-          />
+          <Route path="/mood-selector" component={() => <MoodSelector />} />
+          <Route path="/diary-cover" component={() => <DiaryCover />} />
+          <Route path="/journal-entry" component={() => <JournalEntry />} />
+          <Route path="/past-entries" component={() => <PastEntries />} />
           <Route component={NotFound} />
         </Switch>
-        
         <FloatingNavigation />
       </div>
     </div>

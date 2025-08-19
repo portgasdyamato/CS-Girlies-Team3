@@ -440,16 +440,34 @@ function JournalEntry() {
                   transition={{ delay: 0.5, duration: 0.8 }}
                 >
                   {/* Generation Button - top right of right page */}
-                  <button
+                  <motion.button
                     className="absolute top-4 right-4 z-30 w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-indigo-500 shadow-lg flex items-center justify-center hover:scale-105 transition-transform"
                     style={{ boxShadow: '0 4px 24px rgba(80,0,160,0.12)' }}
-                    aria-label="Generate"
-                    onClick={() => setLocation('/results')}
+                    aria-label="Generate Content Based on Mood"
+                    onClick={() => {
+                      // Save the current mood and entry to localStorage for the results page to access
+                      // Store with both keys for backward compatibility
+                      localStorage.setItem('journalMood', selectedMood);
+                      localStorage.setItem('selectedMood', selectedMood);
+                      localStorage.setItem('journalEntry', entry);
+                      
+                      // Show loading animation
+                      setFlipping(true);
+                      
+                      // Redirect to results page after a short delay for animation
+                      setTimeout(() => setLocation('/results'), 800);
+                    }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    animate={{ 
+                      boxShadow: ['0 4px 24px rgba(80,0,160,0.12)', '0 4px 32px rgba(80,0,160,0.25)', '0 4px 24px rgba(80,0,160,0.12)'] 
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
                   >
                     <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M16 4l2.5 7.5L26 12l-7.5 2.5L16 28l-2.5-13.5L6 12l7.5-2.5L16 4z" fill="#fff"/>
                     </svg>
-                  </button>
+                  </motion.button>
                   {/* Page Lines Background */}
                   <div 
                     className="absolute inset-0 pointer-events-none opacity-10"
